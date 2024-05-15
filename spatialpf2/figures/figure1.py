@@ -1,0 +1,31 @@
+"""
+Describes the model's reaction to the removal of specific pieces of the
+dataset. It can clearly be observed for all cell types that had an identifying component that the
+corresponding weight for the condition removed significantly dropped.
+"""
+
+from .common import getSetup
+from ..imports import import_HTAN
+from ..factorization import pf2
+from .commonFuncs.plotFactors import (
+    plot_condition_factors,
+    plot_eigenstate_factors,
+    plot_gene_factors,
+    plot_factor_weight,
+)
+
+
+def makeFigure():
+    rank = 20
+    data = import_HTAN()
+
+    ax, f = getSetup((10, 12), (2, 2))
+
+    X = pf2(data, rank, doEmbedding=False)
+
+    plot_condition_factors(X, ax[0])
+    plot_eigenstate_factors(X, ax[1])
+    plot_gene_factors(X, ax[2])
+    plot_factor_weight(X, ax[3])
+
+    return f
