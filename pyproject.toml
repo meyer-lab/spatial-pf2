@@ -27,3 +27,6 @@ doubletdetection = "^4.2"
 statsmodels = "^0.14.1"
 dask = {extras = ["dataframe"], version = "^2024.3.1"}
 ruff = "^0.4.2"
+
+[tool.poetry.scripts]                                                           
+fbuild = "spatialpf2.figures.common:genFigure"
