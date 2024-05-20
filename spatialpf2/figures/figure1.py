@@ -17,9 +17,9 @@ def makeFigure():
     ax, f = getSetup((10, 12), (2, 2))
     
     rank = 20
-    data = import_HTAN()
+    X = import_HTAN()
 
-    X = pf2(data, rank, doEmbedding=False)
+    X = pf2(X, rank, doEmbedding=False)
 
     plot_condition_factors(X, ax[0])
     plot_eigenstate_factors(X, ax[1])
