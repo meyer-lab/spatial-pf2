@@ -6,13 +6,13 @@ from .common import getSetup
 from ..imports import import_HTAN
 from ..factorization import pf2
 from .commonFuncs.plotFactors import (
-    bot_top_genes
+    plot_gene_factors_partial
 )
 import pandas as pd
 
 
 def makeFigure():
-    ax, f = getSetup((10, 12), (4, 5))
+    ax, f = getSetup((10, 12), (8, 5))
 
     rank = 20
     X = import_HTAN()
@@ -20,10 +20,15 @@ def makeFigure():
     X = pf2(X, rank, doEmbedding=False)
 
     for i in range(rank):
-        genes = bot_top_genes(X, i+1)
-        df = pd.DataFrame(
-            data=X.varm["Pf2_C"][:, i], index=X.var_names, columns=["Component"]
-        )
-        ax[i].barh(genes, df.loc[genes, "Component"])
+        plot_gene_factors_partial(i + 1, X, ax[i])
+        ax[i].set(title=f"Component {i+1}")
+        ax[i].set_xlabel("Gene")
+        ax[i].set_ylabel("Weight")
+
+    for i in range(rank, 2 * rank):
+        plot_gene_factors_partial(i - rank + 1, X, ax[i], top=False)
+        ax[i].set(title=f"Component {i - rank + 1}")
+        ax[i].set_xlabel("Gene")
+        ax[i].set_ylabel("Weight")
 
     return f

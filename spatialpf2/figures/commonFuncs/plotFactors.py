@@ -23,10 +23,10 @@ def plot_condition_factors(
     yt = pd.Series(np.unique(data.obs["Condition"]))
     X = np.array(data.uns["Pf2_A"])
 
-    X = np.log10(X)
-
     X -= np.median(X, axis=0)
     X /= np.std(X, axis=0)
+
+    X = np.log10(X)
 
     ind = reorder_table(X)
     X = X[ind]
