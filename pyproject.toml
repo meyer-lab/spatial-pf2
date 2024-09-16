@@ -1,31 +1,69 @@
-[tool.poetry]
+[project]
 name = "spatialpf2"
-version = "0.0.0"
+version = "0.1.0"
 description = "Spatial data analysis using PARAFAC2."
-authors = ["Andrew Ramirez", "Nathaniel Thomas", "Breanna Remigio", "Aaron Meyer <git@asmlab.org>"]
+authors = [{name = "Nathaniel Thomas"}, {name="Breanna Remigio"}, {name = "Andrew Ramirez"}, {name="Aaron Meyer", email = "git@asmlab.org"}]
 license = "MIT"
+requires-python = ">= 3.11, <= 3.13"
 
-[tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-numpy = "^1.26"
-scipy = "^1.12"
-scikit-learn = "^1.4"
-seaborn = "^0.13.2"
-pandas = "^2.2.1"
-tensorly = "0.8.1"
-parafac2 = { git = "https://github.com/meyer-lab/parafac2.git", rev = "b0bf58fd3b285d5cf6e598ccd254f7df04c083b9" }
-h5netcdf = "^1.3"
-anndata = "^0.10.3"
-datashader = "^0.16"
-gseapy = "^1.1"
-scanpy = "^1.10"
-pacmap = "^0.7.1"
-leidenalg = "^0.10.1"
-tqdm = "^4.66.1"
-tlviz = "^0.1.1"
-statsmodels = "^0.14.1"
-dask = {extras = ["dataframe"], version = "^2024.3.1"}
-ruff = "^0.4.2"
 
-[tool.poetry.scripts]                                                           
+dependencies = [
+    "pandas>=2.1.3",
+    "scanpy>=1.9.6",
+    "matplotlib>=3.9",
+    "scikit-learn>=1.5",
+    "tensorly>=0.8.1",
+    "numpy>=1.26.2",
+    "parafac2 @ git+https://github.com/meyer-lab/parafac2.git@793f8ad06791ffcc698105d80941774741722574",
+    "pacmap>=0.7.3",
+    "anndata>=0.10.3",
+    "tlviz>=0.1.1",
+    "datashader>=0.16.2",
+    "dask[dataframe]>=2024.5.0",
+    "setuptools>=69.5",
+    "doubletdetection>=4.2",
+    "networkx>=3.3"
+]
+
+
+readme = "README.md"
+
+[project.scripts]
 fbuild = "spatialpf2.figures.common:genFigure"
+factor = "spatialpf2.imports:factorSave"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "pyright>=1.1",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["spatialpf2"]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # Unused arguments
+    "ARG",
+]
