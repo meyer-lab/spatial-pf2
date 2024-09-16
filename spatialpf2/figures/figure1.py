@@ -16,7 +16,7 @@ from .commonFuncs.plotFactors import (
 def makeFigure():
     ax, f = getSetup((10, 12), (2, 2))
     
-    rank = 20
+    rank = 2
     X = import_HTAN()
 
     X = pf2(X, rank, doEmbedding=False)

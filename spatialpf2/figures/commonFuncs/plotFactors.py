@@ -22,11 +22,13 @@ def plot_condition_factors(
     pd.set_option("display.max_rows", None)
     yt = pd.Series(np.unique(data.obs["Condition"]))
     X = np.array(data.uns["Pf2_A"])
-
+    print(X)
     X = np.log10(X)
-
+    print(X)
     X -= np.median(X, axis=0)
     X /= np.std(X, axis=0)
+    
+    print(X)
 
     ind = reorder_table(X)
     X = X[ind]
